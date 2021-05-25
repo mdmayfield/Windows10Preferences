@@ -102,7 +102,10 @@ Ctrl & ]::Send {LAlt down}{Right}{LAlt up}
 LWin & 1:: ; fix so that my Ctrl-Shift-1 Outlook shortcut stays with the same physical keys
 GetKeyState, state, LShift
 if state = D
-Send {RShift down}{RCtrl down}{1}{RCtrl up}{RShift up}
+KeyWait, LShift
+KeyWait, LWin
+KeyWait, 1
+Send {RShift down}{RCtrl down}{1}{RCtrl up}{RShift up}{LShift up}
 Return
 
 
