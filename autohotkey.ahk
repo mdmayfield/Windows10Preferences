@@ -7,6 +7,7 @@
 ;#If not WinActive("ahk_exe VirtualBoxVM.exe")
 ;Not using If because AltTab shortcuts ignore it.
 
+
 ; Fix Alt-Tab to be like Command-Tab and Command-`
 <^Tab::AltTab
 <^`::ShiftAltTab
@@ -16,11 +17,19 @@
 
 ; RSI relief...
 #If, GetKeyState("CapsLock","t")
-  LShift::LButton
-  LCtrl::RButton
-  LWin::MButton
-  a::Click WheelUp
-  z::Click WheelDown
+  d::LButton
+  e::RButton
+  a::MButton
+  s::Click WheelUp
+  f::Click WheelDown
+  w::Click WheelLeft
+  r::Click WheelRight
+  ~LButton::
+    SetCapsLockState, off
+    return
+  `;::
+    SetCapsLockState, off
+    return
 
 #If not WinActive("ahk_exe VirtualBoxVM.exe")
 
@@ -66,7 +75,12 @@ Return
 
 ; Browsers
 #If WinActive("ahk_class Chrome_WidgetWin_1") || WinActive("ahk_class MozillaWindowClass")
+
 Ctrl & Left::
+If GetKeyState("LWin", "P") { 
+ Send {Blind}{Left}
+ Return
+}
 GetKeyState, state, Shift
 if state = D
 Send {RCtrl down}{RShift down}{Tab}{RShift up}{RCtrl up}
@@ -75,6 +89,10 @@ Send {LAlt down}{Left}{LAlt up}
 Return
 
 Ctrl & Right::
+If GetKeyState("LWin", "P") { 
+ Send {Blind}{Right}
+ Return
+}
 GetKeyState, state, Shift
 if state = D
 Send {RCtrl down}{Tab}{RCtrl up}
